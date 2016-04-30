@@ -1,7 +1,15 @@
 # A module that wraps http://api.bart.gov/  (2016). 
 # The api is broken up in various modules such as: Overview, Advisories, Real-Time Estimates, Route Information, and Schedule Information.
 module BartApiHelper
+  
+  # This module utilizes 'net/http' for faciliating HTTP request to BART's backend.
   require 'net/http'
+  
+  # Advisory Information API
+  #  The Advisory Information API contains command for requesting information about BART Service Advisories (BSA), 
+  #  elevator messages, and current system train count. 
+  #  This information is pulled from the real-time information system that is used for the BART website as well as the station information signs. 
+  #   It is updated every minute.
   
   module Advisories
   def say_hello
@@ -20,7 +28,7 @@ module BartApiHelper
       render  json: output, status: 200
     end
     
-    #Advisories - Contains commands and calls pertaining to BART service advisories (BSA), elevator outages and train counts.
+    # bsa - Requests current advisory information.
     def bart_bsa_get_advisories
       puts "bart service announcement"
       
@@ -39,6 +47,7 @@ module BartApiHelper
       render  json: output, status: 200
     end
     
+    # count - Request the number of trains currently active in the system.
     def bart_train_count
       puts "bart service announcement"
       
@@ -57,6 +66,7 @@ module BartApiHelper
       render  json: output, status: 200
     end
     
+    # elev - Requests current elevator status information.
     def bart_elevator_status
      puts "bart elevator status"
      
