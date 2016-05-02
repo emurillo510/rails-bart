@@ -60,7 +60,7 @@ module BartApiHelper
     #       </root>
     # ==== Examples
     #  http://api.bart.gov/api/bsa.aspx?cmd=bsa&date=today&key=[Rails.application.secrets.bart_api_key]
-    def bart_bsa_get_advisories
+    def bart_bsa_get_advisories(client_options={})
       puts "bart base url: " << BartApiHelper.bart_base_url
       puts "bart client command: " << "input from client"
       puts "bart api key: " << BartApiHelper.bart_api_key
@@ -91,7 +91,7 @@ module BartApiHelper
     #     </root>
     # ==== Examples
     #  http://api.bart.gov/api/bsa.aspx?cmd=count&key=[Rails.application.secrets.bart_api_key]
-    def bart_train_count
+    def bart_train_count(client_options={})
       puts "bart service announcement"
       
       puts "Hello there"
@@ -129,7 +129,7 @@ module BartApiHelper
     #  </root>
     # ==== Examples
     #  http://api.bart.gov/api/bsa.aspx?cmd=elev&key=[Rails.application.secrets.bart_api_key]
-    def bart_elevator_status
+    def bart_elevator_status(client_options={})
      puts "bart elevator status"
      
       bart_key = Rails.application.secrets.bart_api_key
@@ -239,7 +239,7 @@ module BartApiHelper
     #  </root>
     # ==== Examples
     #  http://api.bart.gov/api/etd.aspx?cmd=etd&orig=RICH&key=[Rails.application.secrets.bart_api_key]
-    def bart_estimate_departure
+    def bart_estimate_departure(client_options={})
       puts "Hello there"
       
       bart_key = Rails.application.secrets.bart_api_key
@@ -331,7 +331,7 @@ module BartApiHelper
     #    </root>
     # ==== Examples
     #  http://api.bart.gov/api/route.aspx?cmd=routeinfo&route=6&key=[Rails.application.secrets.bart_api_key]
-    def bart_routes
+    def bart_routes(client_options={})
       puts "Hello there"
       
       bart_key = Rails.application.secrets.bart_api_key
@@ -374,7 +374,7 @@ module BartApiHelper
     #  </root>
     # ==== Examples
     #  http://api.bart.gov/api/route.aspx?cmd=routes&key=[Rails.application.secrets.bart_api_key]
-    def bart_routeinfo
+    def bart_routeinfo(client_options={})
       puts "Hello there"
       
       bart_key = Rails.application.secrets.bart_api_key
@@ -446,7 +446,7 @@ module BartApiHelper
     #     </root>
     # ==== Examples
     #  http://api.bart.gov/api/sched.aspx?cmd=arrive&orig=ASHB&dest=CIVC&date=now&b=2&a=2&l=1&key=[Rails.application.secrets.bart_api_key]
-    def bart_arrive
+    def bart_arrive(client_options={})
       puts "Hello there"
       
       bart_key = Rails.application.secrets.bart_api_key
@@ -512,7 +512,7 @@ module BartApiHelper
     #     </root>
     # ==== Examples
     #  http://api.bart.gov/api/sched.aspx?cmd=depart&orig=ASHB&dest=CIVC&date=now&b=2&a=2&l=1&key=[Rails.application.secrets.bart_api_key]
-    def bart_depart
+    def bart_depart(client_options={})
       puts "Hello there"
       
       bart_key = Rails.application.secrets.bart_api_key
@@ -557,7 +557,7 @@ module BartApiHelper
     #      </root>
     # ==== Examples
     #  http://api.bart.gov/api/sched.aspx?cmd=fare&orig=12th&dest=embr&key=[Rails.application.secrets.bart_api_key]
-    def bart_fare
+    def bart_fare(client_options)
       puts "Hello there"
       
       bart_key = Rails.application.secrets.bart_api_key
@@ -624,7 +624,7 @@ module BartApiHelper
     #     </root>
     # ==== Examples
     #  http://api.bart.gov/api/sched.aspx?cmd=special&key=[Rails.application.secrets.bart_api_key]
-    def bart_holiday
+    def bart_holiday(client_options={})
       puts "Hello there"
       
       bart_key = Rails.application.secrets.bart_api_key
@@ -666,7 +666,7 @@ module BartApiHelper
     #    </root> 
     # ==== Examples
     #  http://api.bart.gov/api/sched.aspx?cmd=load&ld1=WDUB1130&ld2=BAYF0331&ld3=19TH0217&st=w&key=[Rails.application.secrets.bart_api_key]
-    def bart_load
+    def bart_load(client_options={})
       puts "Hello there"
       
       bart_key = Rails.application.secrets.bart_api_key
@@ -773,7 +773,7 @@ module BartApiHelper
     #    </root>
     # ==== Examples
     #  http://api.bart.gov/api/sched.aspx?cmd=routesched&route=6&key=[Rails.application.secrets.bart_api_key]
-    def bart_route_schedule
+    def bart_route_schedule(client_options={})
       puts "Hello there"
       
       bart_key = Rails.application.secrets.bart_api_key
@@ -807,7 +807,7 @@ module BartApiHelper
     #  </root>
     # ==== Examples
     #  http://api.bart.gov/api/sched.aspx?cmd=scheds&key=[Rails.application.secrets.bart_api_key]
-    def bart_schedules
+    def bart_schedules(client_options={})
       puts "Hello there"
       
       bart_key = Rails.application.secrets.bart_api_key
@@ -854,7 +854,7 @@ module BartApiHelper
     #  </root>
     # ==== Examples
     #  http://api.bart.gov/api/sched.aspx?cmd=special&l=1&key=[Rails.application.secrets.bart_api_key]
-    def bart_special
+    def bart_special(client_options={})
       puts "Hello there"
       
       bart_key = Rails.application.secrets.bart_api_key
@@ -907,7 +907,7 @@ module BartApiHelper
     #  </root>
     # ==== Examples
     #  http://api.bart.gov/api/sched.aspx?cmd=stnsched&orig=12th&l=1&key=[Rails.application.secrets.bart_api_key]
-   def bart_station_schedule
+   def bart_station_schedule(client_options={})
      puts "Hello there"
       
       bart_key = Rails.application.secrets.bart_api_key
@@ -981,7 +981,7 @@ module BartApiHelper
     #  </root>
     # ==== Examples
     #  http://api.bart.gov/api/stn.aspx?cmd=stninfo&orig=24th&key=[Rails.application.secrets.bart_api_key]
-    def bart_station_info
+    def bart_station_info(client_options={})
       puts "Hello there"
       
       bart_key = Rails.application.secrets.bart_api_key
@@ -1040,7 +1040,7 @@ module BartApiHelper
     #  </root>
     # ==== Examples
     #  http://api.bart.gov/api/stn.aspx?cmd=stnaccess&orig=12th&l=1&key=[Rails.application.secrets.bart_api_key]
-    def bart_station_access
+    def bart_station_access(client_options={})
       puts "Hello there"
       
       bart_key = Rails.application.secrets.bart_api_key
@@ -1095,7 +1095,7 @@ module BartApiHelper
     #  </root>
     # ==== Examples
     #  http://api.bart.gov/api/stn.aspx?cmd=stns&key=[Rails.application.secrets.bart_api_key]
-    def bart_stations
+    def bart_stations(client_options={})
       puts "Hello there"
       
       bart_key = Rails.application.secrets.bart_api_key
