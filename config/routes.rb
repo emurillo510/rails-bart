@@ -1,29 +1,29 @@
 Rails.application.routes.draw do
   root 'bart#index'
   
-  get '/getServiceAdvisories' => 'bart#get_advisories'
-  get '/getTrainCount' => 'bart#get_train_count'
-  get '/getElevatorStatus' => 'bart#get_elevator_status'
+  get '/getServiceAdvisories' => 'bart#bart_bsa_get_advisories'
+  get '/getTrainCount' => 'bart#get_bart_train_count'
+  get '/getElevatorStatus' => 'bart#get_bart_elevator_status'
   
-  get '/getEtd' => 'bart#get_etd'
-  get '/getEtdFilter' => 'bart#get_etd_filter'
+  get '/getEtd' => 'bart#  def get_bart_estimate_departure'
+  get '/getEtdFilter' => 'bart#get_bart_estimate_departure_filter'
   
-  get '/getRoutes' => 'bart#get_routes'
-  get '/getRoutesInfo' => 'bart#get_routeinfo'
+  get '/getRoutes' => 'bart#get_bart_routes'
+  get '/getRoutesInfo' => 'bart#get_bart_routeinfo'
   
-  get '/getArrivals' => 'bart#get_arrive'
-  get '/getDepartures' => 'bart#get_depart'
-  get '/getFares' => 'bart#get_fare'
-  get '/getHolidays' => 'bart#get_holiday'
-  get '/getLoad' => 'bart#get_load'
-  get '/getRouteSchedules' => 'bart#get_route_schedule'
-  get '/getSchedules' => 'bart#get_schedules'
-  get '/getSpecialSchedules' => 'bart#get_special'
-  get '/getStationSchedules' => 'bart#get_station_schedule'
+  get '/getArrivals' => 'bart#get_bart_arrive'
+  get '/getDepartures' => 'bart#get_bart_depart'
+  get '/getFares' => 'bart#get_bart_fare'
+  get '/getHolidays' => 'bart#get_bart_holiday'
+  get '/getLoad' => 'bart#get_bart_load'
+  get '/getRouteSchedules' => 'bart#get_bart_route_schedule'
+  get '/getSchedules' => 'bart#get_bart_schedules'
+  get '/getSpecialSchedules' => 'bart#get_bart_special'
+  get '/getStationSchedules' => 'bart#get_bart_station_schedule'
   
-  get '/getStations' => 'bart#get_station_info'
-  get '/getStationInfo' => 'bart#get_station_access'
-  get '/getStationAccess' => 'bart#get_station_list'
+  get '/getStations' => 'bart#get_bart_stations'
+  get '/getStationInfo' => 'bart#get_bart_station_info'
+  get '/getStationAccess' => 'bart#get_bart_station_access'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -1,113 +1,696 @@
+#  BartController class serves Bart API data to the client in json format.
 class BartController < ApplicationController
-include BartApiHelper::Advisories
-include BartApiHelper::RealTimeInformation
-include BartApiHelper::RouteInformation
-include BartApiHelper::ScheduleInformation
-include BartApiHelper::StationInformation
+  include BartApiHelper::Advisories
+  include BartApiHelper::RealTimeInformation
+  include BartApiHelper::RouteInformation
+  include BartApiHelper::ScheduleInformation
+  include BartApiHelper::StationInformation
+
+@VALID_PARAMETERS = %(cmd, key, orig, plat, dir, route, sched, date, time. b, a, l, dest, Id1, Id2, Id3, st)
+
+def index
+    bart_bsa_get_advisories  
+end
   
-  # Advisories Modules
-  def index
-     puts "inside controller"
-     say_hello
-  end
+  # Advisories Module
   
-  def get_advisories
-    puts "inside "
+  # get_bart_bsa_get_advisories - Requests current advisory information.
+  #
+  #  *Arguments*
+  #  - +cmd=bsa+ => Requests current advisory information (Required)
+  #  - +orig=<stn>+ => Only get messages for specified station. Defaults to "all". (Optional) 
+  #                      [Note: currently only "orig=all" or leaving the orig parameter off are supported, 
+  #                      the BART system does not currently provide station specific BSA messages.]
+  #  - +key=<key>+ =>  API registration key (Required)
+  # 
+  #  *Returns* (in JSON format not XML)
+  #  - <root>
+  #       <uri>
+  #       <![CDATA[
+  #       http://api.bart.gov/api/bsa.aspx?cmd=bsa&date=today
+  #       ]]>
+  #       </uri>
+  #       <date>04/30/2016</date>
+  #       <time>13:33:00 PM PDT</time>
+  #       <bsa>
+  #       <station/>
+  #       <description>
+  #       <![CDATA[ No delays reported. ]]>
+  #       </description>
+  #       <sms_text>
+  #       <![CDATA[ No delays reported. ]]>
+  #       </sms_text>
+  #       </bsa>
+  #       <message/>
+  #       </root>
+  # ==== Examples
+  #
+  def get_bart_bsa_get_advisories
     bart_bsa_get_advisories
   end
   
-  def get_train_count
-    puts "inside train code"
+  # get_bart_train_count - Requests current advisory information.
+  #
+  #  *Arguments*
+  #  - +cmd=bsa+ => Requests current advisory information (Required)
+  #  - +orig=<stn>+ => Only get messages for specified station. Defaults to "all". (Optional) 
+  #                      [Note: currently only "orig=all" or leaving the orig parameter off are supported, 
+  #                      the BART system does not currently provide station specific BSA messages.]
+  #  - +key=<key>+ =>  API registration key (Required)
+  # 
+  #  *Returns* (in JSON format not XML)
+  #  - <root>
+  #       <uri>
+  #       <![CDATA[
+  #       http://api.bart.gov/api/bsa.aspx?cmd=bsa&date=today
+  #       ]]>
+  #       </uri>
+  #       <date>04/30/2016</date>
+  #       <time>13:33:00 PM PDT</time>
+  #       <bsa>
+  #       <station/>
+  #       <description>
+  #       <![CDATA[ No delays reported. ]]>
+  #       </description>
+  #       <sms_text>
+  #       <![CDATA[ No delays reported. ]]>
+  #       </sms_text>
+  #       </bsa>
+  #       <message/>
+  #       </root>
+  # ==== Examples
+  #
+  def get_bart_train_count
     bart_train_count
   end
   
-  def get_elevator_status
-    puts "get elevator status"
+  # get_bart_elevator_status - Requests current advisory information.
+  #
+  #  *Arguments*
+  #  - +cmd=bsa+ => Requests current advisory information (Required)
+  #  - +orig=<stn>+ => Only get messages for specified station. Defaults to "all". (Optional) 
+  #                      [Note: currently only "orig=all" or leaving the orig parameter off are supported, 
+  #                      the BART system does not currently provide station specific BSA messages.]
+  #  - +key=<key>+ =>  API registration key (Required)
+  # 
+  #  *Returns* (in JSON format not XML)
+  #  - <root>
+  #       <uri>
+  #       <![CDATA[
+  #       http://api.bart.gov/api/bsa.aspx?cmd=bsa&date=today
+  #       ]]>
+  #       </uri>
+  #       <date>04/30/2016</date>
+  #       <time>13:33:00 PM PDT</time>
+  #       <bsa>
+  #       <station/>
+  #       <description>
+  #       <![CDATA[ No delays reported. ]]>
+  #       </description>
+  #       <sms_text>
+  #       <![CDATA[ No delays reported. ]]>
+  #       </sms_text>
+  #       </bsa>
+  #       <message/>
+  #       </root>
+  # ==== Examples
+  #
+  def get_bart_elevator_status
     bart_elevator_status
   end
   
-  # RealTime Information Modules
-  def get_etd
-    "puts get etd"
+  # RealTime Information Module
+  
+  # get_bart_estimate_departure - Requests current advisory information.
+  #
+  #  *Arguments*
+  #  - +cmd=bsa+ => Requests current advisory information (Required)
+  #  - +orig=<stn>+ => Only get messages for specified station. Defaults to "all". (Optional) 
+  #                      [Note: currently only "orig=all" or leaving the orig parameter off are supported, 
+  #                      the BART system does not currently provide station specific BSA messages.]
+  #  - +key=<key>+ =>  API registration key (Required)
+  # 
+  #  *Returns* (in JSON format not XML)
+  #  - <root>
+  #       <uri>
+  #       <![CDATA[
+  #       http://api.bart.gov/api/bsa.aspx?cmd=bsa&date=today
+  #       ]]>
+  #       </uri>
+  #       <date>04/30/2016</date>
+  #       <time>13:33:00 PM PDT</time>
+  #       <bsa>
+  #       <station/>
+  #       <description>
+  #       <![CDATA[ No delays reported. ]]>
+  #       </description>
+  #       <sms_text>
+  #       <![CDATA[ No delays reported. ]]>
+  #       </sms_text>
+  #       </bsa>
+  #       <message/>
+  #       </root>
+  # ==== Examples
+  #
+  def get_bart_estimate_departure
     bart_estimate_departure
   end
   
-  def get_etd_filter
-    "puts get etd"
+  # get_bart_estimate_departure_filter - Requests current advisory information.
+  #
+  #  *Arguments*
+  #  - +cmd=bsa+ => Requests current advisory information (Required)
+  #  - +orig=<stn>+ => Only get messages for specified station. Defaults to "all". (Optional) 
+  #                      [Note: currently only "orig=all" or leaving the orig parameter off are supported, 
+  #                      the BART system does not currently provide station specific BSA messages.]
+  #  - +key=<key>+ =>  API registration key (Required)
+  # 
+  #  *Returns* (in JSON format not XML)
+  #  - <root>
+  #       <uri>
+  #       <![CDATA[
+  #       http://api.bart.gov/api/bsa.aspx?cmd=bsa&date=today
+  #       ]]>
+  #       </uri>
+  #       <date>04/30/2016</date>
+  #       <time>13:33:00 PM PDT</time>
+  #       <bsa>
+  #       <station/>
+  #       <description>
+  #       <![CDATA[ No delays reported. ]]>
+  #       </description>
+  #       <sms_text>
+  #       <![CDATA[ No delays reported. ]]>
+  #       </sms_text>
+  #       </bsa>
+  #       <message/>
+  #       </root>
+  # ==== Examples
+  #
+  def get_bart_estimate_departure_filter
     bart_estimate_departure_filter
   end
   
-  # RouteInformation Modules
-  def get_routes
-    puts "get routes"
-    bart_routes
+  # RouteInformation Module
   
+  # get_bart_routes - Requests current advisory information.
+  #
+  #  *Arguments*
+  #  - +cmd=bsa+ => Requests current advisory information (Required)
+  #  - +orig=<stn>+ => Only get messages for specified station. Defaults to "all". (Optional) 
+  #                      [Note: currently only "orig=all" or leaving the orig parameter off are supported, 
+  #                      the BART system does not currently provide station specific BSA messages.]
+  #  - +key=<key>+ =>  API registration key (Required)
+  # 
+  #  *Returns* (in JSON format not XML)
+  #  - <root>
+  #       <uri>
+  #       <![CDATA[
+  #       http://api.bart.gov/api/bsa.aspx?cmd=bsa&date=today
+  #       ]]>
+  #       </uri>
+  #       <date>04/30/2016</date>
+  #       <time>13:33:00 PM PDT</time>
+  #       <bsa>
+  #       <station/>
+  #       <description>
+  #       <![CDATA[ No delays reported. ]]>
+  #       </description>
+  #       <sms_text>
+  #       <![CDATA[ No delays reported. ]]>
+  #       </sms_text>
+  #       </bsa>
+  #       <message/>
+  #       </root>
+  # ==== Examples
+  #
+  def get_bart_routes
+    bart_routes
   end
   
-  def get_routeinfo
-    puts "route info"
+  # get_bart_routeinfo - Requests current advisory information.
+  #
+  #  *Arguments*
+  #  - +cmd=bsa+ => Requests current advisory information (Required)
+  #  - +orig=<stn>+ => Only get messages for specified station. Defaults to "all". (Optional) 
+  #                      [Note: currently only "orig=all" or leaving the orig parameter off are supported, 
+  #                      the BART system does not currently provide station specific BSA messages.]
+  #  - +key=<key>+ =>  API registration key (Required)
+  # 
+  #  *Returns* (in JSON format not XML)
+  #  - <root>
+  #       <uri>
+  #       <![CDATA[
+  #       http://api.bart.gov/api/bsa.aspx?cmd=bsa&date=today
+  #       ]]>
+  #       </uri>
+  #       <date>04/30/2016</date>
+  #       <time>13:33:00 PM PDT</time>
+  #       <bsa>
+  #       <station/>
+  #       <description>
+  #       <![CDATA[ No delays reported. ]]>
+  #       </description>
+  #       <sms_text>
+  #       <![CDATA[ No delays reported. ]]>
+  #       </sms_text>
+  #       </bsa>
+  #       <message/>
+  #       </root>
+  # ==== Examples
+  #
+  def get_bart_routeinfo
     bart_routeinfo
   end
   
-  # ScheduleInformation Modules
- def get_arrive
-   puts "bart arrive"
+  # Schedule Information Module
+  
+  
+  # get_bart_arrive - Requests current advisory information.
+  #
+  #  *Arguments*
+  #  - +cmd=bsa+ => Requests current advisory information (Required)
+  #  - +orig=<stn>+ => Only get messages for specified station. Defaults to "all". (Optional) 
+  #                      [Note: currently only "orig=all" or leaving the orig parameter off are supported, 
+  #                      the BART system does not currently provide station specific BSA messages.]
+  #  - +key=<key>+ =>  API registration key (Required)
+  # 
+  #  *Returns* (in JSON format not XML)
+  #  - <root>
+  #       <uri>
+  #       <![CDATA[
+  #       http://api.bart.gov/api/bsa.aspx?cmd=bsa&date=today
+  #       ]]>
+  #       </uri>
+  #       <date>04/30/2016</date>
+  #       <time>13:33:00 PM PDT</time>
+  #       <bsa>
+  #       <station/>
+  #       <description>
+  #       <![CDATA[ No delays reported. ]]>
+  #       </description>
+  #       <sms_text>
+  #       <![CDATA[ No delays reported. ]]>
+  #       </sms_text>
+  #       </bsa>
+  #       <message/>
+  #       </root>
+  # ==== Examples
+  #
+ def get_bart_arrive
    bart_arrive
  end
  
- def get_depart
-   puts "bart depart"
+ 
+ # get_bart_depart - Requests current advisory information.
+  #
+  #  *Arguments*
+  #  - +cmd=bsa+ => Requests current advisory information (Required)
+  #  - +orig=<stn>+ => Only get messages for specified station. Defaults to "all". (Optional) 
+  #                      [Note: currently only "orig=all" or leaving the orig parameter off are supported, 
+  #                      the BART system does not currently provide station specific BSA messages.]
+  #  - +key=<key>+ =>  API registration key (Required)
+  # 
+  #  *Returns* (in JSON format not XML)
+  #  - <root>
+  #       <uri>
+  #       <![CDATA[
+  #       http://api.bart.gov/api/bsa.aspx?cmd=bsa&date=today
+  #       ]]>
+  #       </uri>
+  #       <date>04/30/2016</date>
+  #       <time>13:33:00 PM PDT</time>
+  #       <bsa>
+  #       <station/>
+  #       <description>
+  #       <![CDATA[ No delays reported. ]]>
+  #       </description>
+  #       <sms_text>
+  #       <![CDATA[ No delays reported. ]]>
+  #       </sms_text>
+  #       </bsa>
+  #       <message/>
+  #       </root>
+  # ==== Examples
+  #
+ def get_bart_depart
    bart_depart
  end
  
- def get_fare
-   puts "fare"
+ # get_bart_fare - Requests current advisory information.
+  #
+  #  *Arguments*
+  #  - +cmd=bsa+ => Requests current advisory information (Required)
+  #  - +orig=<stn>+ => Only get messages for specified station. Defaults to "all". (Optional) 
+  #                      [Note: currently only "orig=all" or leaving the orig parameter off are supported, 
+  #                      the BART system does not currently provide station specific BSA messages.]
+  #  - +key=<key>+ =>  API registration key (Required)
+  # 
+  #  *Returns* (in JSON format not XML)
+  #  - <root>
+  #       <uri>
+  #       <![CDATA[
+  #       http://api.bart.gov/api/bsa.aspx?cmd=bsa&date=today
+  #       ]]>
+  #       </uri>
+  #       <date>04/30/2016</date>
+  #       <time>13:33:00 PM PDT</time>
+  #       <bsa>
+  #       <station/>
+  #       <description>
+  #       <![CDATA[ No delays reported. ]]>
+  #       </description>
+  #       <sms_text>
+  #       <![CDATA[ No delays reported. ]]>
+  #       </sms_text>
+  #       </bsa>
+  #       <message/>
+  #       </root>
+  # ==== Examples
+  #
+ def get_bart_fare
    bart_fare
  end
  
- def get_holiday
-   puts "holiday"
+ # get_bart_holiday - Requests current advisory information.
+  #
+  #  *Arguments*
+  #  - +cmd=bsa+ => Requests current advisory information (Required)
+  #  - +orig=<stn>+ => Only get messages for specified station. Defaults to "all". (Optional) 
+  #                      [Note: currently only "orig=all" or leaving the orig parameter off are supported, 
+  #                      the BART system does not currently provide station specific BSA messages.]
+  #  - +key=<key>+ =>  API registration key (Required)
+  # 
+  #  *Returns* (in JSON format not XML)
+  #  - <root>
+  #       <uri>
+  #       <![CDATA[
+  #       http://api.bart.gov/api/bsa.aspx?cmd=bsa&date=today
+  #       ]]>
+  #       </uri>
+  #       <date>04/30/2016</date>
+  #       <time>13:33:00 PM PDT</time>
+  #       <bsa>
+  #       <station/>
+  #       <description>
+  #       <![CDATA[ No delays reported. ]]>
+  #       </description>
+  #       <sms_text>
+  #       <![CDATA[ No delays reported. ]]>
+  #       </sms_text>
+  #       </bsa>
+  #       <message/>
+  #       </root>
+  # ==== Examples
+  #
+ def get_bart_holiday
    bart_holiday
  end
  
- def get_load
-   puts "load"
+ # get_bart_load - Requests current advisory information.
+  #
+  #  *Arguments*
+  #  - +cmd=bsa+ => Requests current advisory information (Required)
+  #  - +orig=<stn>+ => Only get messages for specified station. Defaults to "all". (Optional) 
+  #                      [Note: currently only "orig=all" or leaving the orig parameter off are supported, 
+  #                      the BART system does not currently provide station specific BSA messages.]
+  #  - +key=<key>+ =>  API registration key (Required)
+  # 
+  #  *Returns* (in JSON format not XML)
+  #  - <root>
+  #       <uri>
+  #       <![CDATA[
+  #       http://api.bart.gov/api/bsa.aspx?cmd=bsa&date=today
+  #       ]]>
+  #       </uri>
+  #       <date>04/30/2016</date>
+  #       <time>13:33:00 PM PDT</time>
+  #       <bsa>
+  #       <station/>
+  #       <description>
+  #       <![CDATA[ No delays reported. ]]>
+  #       </description>
+  #       <sms_text>
+  #       <![CDATA[ No delays reported. ]]>
+  #       </sms_text>
+  #       </bsa>
+  #       <message/>
+  #       </root>
+  # ==== Examples
+  #
+ def get_bart_load
    bart_load
  end
  
- def get_route_schedule
-   puts "route sched"
+ # get_bart_route_schedule - Requests current advisory information.
+  #
+  #  *Arguments*
+  #  - +cmd=bsa+ => Requests current advisory information (Required)
+  #  - +orig=<stn>+ => Only get messages for specified station. Defaults to "all". (Optional) 
+  #                      [Note: currently only "orig=all" or leaving the orig parameter off are supported, 
+  #                      the BART system does not currently provide station specific BSA messages.]
+  #  - +key=<key>+ =>  API registration key (Required)
+  # 
+  #  *Returns* (in JSON format not XML)
+  #  - <root>
+  #       <uri>
+  #       <![CDATA[
+  #       http://api.bart.gov/api/bsa.aspx?cmd=bsa&date=today
+  #       ]]>
+  #       </uri>
+  #       <date>04/30/2016</date>
+  #       <time>13:33:00 PM PDT</time>
+  #       <bsa>
+  #       <station/>
+  #       <description>
+  #       <![CDATA[ No delays reported. ]]>
+  #       </description>
+  #       <sms_text>
+  #       <![CDATA[ No delays reported. ]]>
+  #       </sms_text>
+  #       </bsa>
+  #       <message/>
+  #       </root>
+  # ==== Examples
+  #
+ def get_bart_route_schedule
    bart_route_schedule
  end
  
- def get_schedules
-   puts "bart schedules"
+ # get_bart_schedules - Requests current advisory information.
+  #
+  #  *Arguments*
+  #  - +cmd=bsa+ => Requests current advisory information (Required)
+  #  - +orig=<stn>+ => Only get messages for specified station. Defaults to "all". (Optional) 
+  #                      [Note: currently only "orig=all" or leaving the orig parameter off are supported, 
+  #                      the BART system does not currently provide station specific BSA messages.]
+  #  - +key=<key>+ =>  API registration key (Required)
+  # 
+  #  *Returns* (in JSON format not XML)
+  #  - <root>
+  #       <uri>
+  #       <![CDATA[
+  #       http://api.bart.gov/api/bsa.aspx?cmd=bsa&date=today
+  #       ]]>
+  #       </uri>
+  #       <date>04/30/2016</date>
+  #       <time>13:33:00 PM PDT</time>
+  #       <bsa>
+  #       <station/>
+  #       <description>
+  #       <![CDATA[ No delays reported. ]]>
+  #       </description>
+  #       <sms_text>
+  #       <![CDATA[ No delays reported. ]]>
+  #       </sms_text>
+  #       </bsa>
+  #       <message/>
+  #       </root>
+  # ==== Examples
+  #
+ def get_bart_schedules
    bart_schedules
  end
  
- def get_special
-   puts "bart special"
+ # get_bart_special - Requests current advisory information.
+  #
+  #  *Arguments*
+  #  - +cmd=bsa+ => Requests current advisory information (Required)
+  #  - +orig=<stn>+ => Only get messages for specified station. Defaults to "all". (Optional) 
+  #                      [Note: currently only "orig=all" or leaving the orig parameter off are supported, 
+  #                      the BART system does not currently provide station specific BSA messages.]
+  #  - +key=<key>+ =>  API registration key (Required)
+  # 
+  #  *Returns* (in JSON format not XML)
+  #  - <root>
+  #       <uri>
+  #       <![CDATA[
+  #       http://api.bart.gov/api/bsa.aspx?cmd=bsa&date=today
+  #       ]]>
+  #       </uri>
+  #       <date>04/30/2016</date>
+  #       <time>13:33:00 PM PDT</time>
+  #       <bsa>
+  #       <station/>
+  #       <description>
+  #       <![CDATA[ No delays reported. ]]>
+  #       </description>
+  #       <sms_text>
+  #       <![CDATA[ No delays reported. ]]>
+  #       </sms_text>
+  #       </bsa>
+  #       <message/>
+  #       </root>
+  # ==== Examples
+  #
+ def get_bart_special
    bart_special
  end
  
- def get_station_schedule
-   puts "get station schedule"
+ # get_bart_station_schedule - Requests current advisory information.
+  #
+  #  *Arguments*
+  #  - +cmd=bsa+ => Requests current advisory information (Required)
+  #  - +orig=<stn>+ => Only get messages for specified station. Defaults to "all". (Optional) 
+  #                      [Note: currently only "orig=all" or leaving the orig parameter off are supported, 
+  #                      the BART system does not currently provide station specific BSA messages.]
+  #  - +key=<key>+ =>  API registration key (Required)
+  # 
+  #  *Returns* (in JSON format not XML)
+  #  - <root>
+  #       <uri>
+  #       <![CDATA[
+  #       http://api.bart.gov/api/bsa.aspx?cmd=bsa&date=today
+  #       ]]>
+  #       </uri>
+  #       <date>04/30/2016</date>
+  #       <time>13:33:00 PM PDT</time>
+  #       <bsa>
+  #       <station/>
+  #       <description>
+  #       <![CDATA[ No delays reported. ]]>
+  #       </description>
+  #       <sms_text>
+  #       <![CDATA[ No delays reported. ]]>
+  #       </sms_text>
+  #       </bsa>
+  #       <message/>
+  #       </root>
+  # ==== Examples
+  #
+ def get_bart_station_schedule
    bart_station_schedule
  end
   
-  # StationInformation Modules
-  def get_station_info
-    puts "get station info"
+  # Station Information Module
+  
+  # get_bart_station_info - Requests current advisory information.
+  #
+  #  *Arguments*
+  #  - +cmd=bsa+ => Requests current advisory information (Required)
+  #  - +orig=<stn>+ => Only get messages for specified station. Defaults to "all". (Optional) 
+  #                      [Note: currently only "orig=all" or leaving the orig parameter off are supported, 
+  #                      the BART system does not currently provide station specific BSA messages.]
+  #  - +key=<key>+ =>  API registration key (Required)
+  # 
+  #  *Returns* (in JSON format not XML)
+  #  - <root>
+  #       <uri>
+  #       <![CDATA[
+  #       http://api.bart.gov/api/bsa.aspx?cmd=bsa&date=today
+  #       ]]>
+  #       </uri>
+  #       <date>04/30/2016</date>
+  #       <time>13:33:00 PM PDT</time>
+  #       <bsa>
+  #       <station/>
+  #       <description>
+  #       <![CDATA[ No delays reported. ]]>
+  #       </description>
+  #       <sms_text>
+  #       <![CDATA[ No delays reported. ]]>
+  #       </sms_text>
+  #       </bsa>
+  #       <message/>
+  #       </root>
+  # ==== Examples
+  #
+  def get_bart_station_info
     bart_station_info
   end
   
-  def get_station_access
-    puts "station access"
+  # get_bart_station_access - Requests current advisory information.
+  #
+  #  *Arguments*
+  #  - +cmd=bsa+ => Requests current advisory information (Required)
+  #  - +orig=<stn>+ => Only get messages for specified station. Defaults to "all". (Optional) 
+  #                      [Note: currently only "orig=all" or leaving the orig parameter off are supported, 
+  #                      the BART system does not currently provide station specific BSA messages.]
+  #  - +key=<key>+ =>  API registration key (Required)
+  # 
+  #  *Returns* (in JSON format not XML)
+  #  - <root>
+  #       <uri>
+  #       <![CDATA[
+  #       http://api.bart.gov/api/bsa.aspx?cmd=bsa&date=today
+  #       ]]>
+  #       </uri>
+  #       <date>04/30/2016</date>
+  #       <time>13:33:00 PM PDT</time>
+  #       <bsa>
+  #       <station/>
+  #       <description>
+  #       <![CDATA[ No delays reported. ]]>
+  #       </description>
+  #       <sms_text>
+  #       <![CDATA[ No delays reported. ]]>
+  #       </sms_text>
+  #       </bsa>
+  #       <message/>
+  #       </root>
+  # ==== Examples
+  #
+  def get_bart_station_access
     bart_station_access
   end
   
-  def get_station_list
-    puts "station list"
+  # get_bart_stations - Requests current advisory information.
+  #
+  #  *Arguments*
+  #  - +cmd=bsa+ => Requests current advisory information (Required)
+  #  - +orig=<stn>+ => Only get messages for specified station. Defaults to "all". (Optional) 
+  #                      [Note: currently only "orig=all" or leaving the orig parameter off are supported, 
+  #                      the BART system does not currently provide station specific BSA messages.]
+  #  - +key=<key>+ =>  API registration key (Required)
+  # 
+  #  *Returns* (in JSON format not XML)
+  #  - <root>
+  #       <uri>
+  #       <![CDATA[
+  #       http://api.bart.gov/api/bsa.aspx?cmd=bsa&date=today
+  #       ]]>
+  #       </uri>
+  #       <date>04/30/2016</date>
+  #       <time>13:33:00 PM PDT</time>
+  #       <bsa>
+  #       <station/>
+  #       <description>
+  #       <![CDATA[ No delays reported. ]]>
+  #       </description>
+  #       <sms_text>
+  #       <![CDATA[ No delays reported. ]]>
+  #       </sms_text>
+  #       </bsa>
+  #       <message/>
+  #       </root>
+  # ==== Examples
+  #
+  def get_bart_stations
     bart_stations
   end
+  
+  private
+    def client_params
+      params.permit(@VALID_PARAMETERS)
+    end
 end

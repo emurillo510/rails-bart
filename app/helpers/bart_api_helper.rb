@@ -1,5 +1,6 @@
 # TODO:
-# for parameters in docmentation: add cmd=arrive
+# Add example link for each endpoint
+# Add correct parameters for every endpoint
 
 # A module that wraps http://api.bart.gov/  (2016). 
 # The api is broken up in various modules such as: Overview, Advisories, Real-Time Estimates, Route Information, and Schedule Information.
@@ -9,9 +10,17 @@ module BartApiHelper
   require 'net/http'
   
   #  Class Variables
-  #  @bart_key = Rails.application.secrets.bart_api_key
-  #  @bart_base_url = http://api.bart.gov/api/bsa.aspx?
+  @@bart_key = Rails.application.secrets.bart_api_key
+  @@bart_base_url = "http://api.bart.gov/api/bsa.aspx?"
   
+  def self.bart_api_key 
+    @@bart_key = Rails.application.secrets.bart_api_key
+  end
+  
+  def self.bart_base_url
+    @@bart_base_url = "http://api.bart.gov/api/bsa.aspx?"
+  end
+   
   #  Advisory Information API
   #
   #  The Advisory Information API contains command for requesting information about BART Service Advisories (BSA), 
@@ -19,8 +28,7 @@ module BartApiHelper
   #  This information is pulled from the real-time information system that is used for the BART website as well as the station information signs. 
   #   It is updated every minute.
   
-  module Advisories
-  
+  module Advisories  
     # bsa - Requests current advisory information.
     #
     #  *Arguments*
@@ -51,16 +59,12 @@ module BartApiHelper
     #       <message/>
     #       </root>
     # ==== Examples
-    #
+    #  http://api.bart.gov/api/bsa.aspx?cmd=bsa&date=today&key=[Rails.application.secrets.bart_api_key]
     def bart_bsa_get_advisories
-      puts "bart service announcement"
-      
-      puts "Hello there"
-      
-      bart_key = Rails.application.secrets.bart_api_key
-      
-      puts "bart key: " + bart_key
-      site_url = "http://api.bart.gov/api/bsa.aspx?cmd=bsa&key=" << bart_key
+      puts "bart base url: " << BartApiHelper.bart_base_url
+      puts "bart client command: " << "input from client"
+      puts "bart api key: " << BartApiHelper.bart_api_key
+      site_url = "http://api.bart.gov/api/bsa.aspx?cmd=bsa&key=" << BartApiHelper.bart_api_key
        
       uri = URI(site_url)
       output = Hash.from_xml(Net::HTTP.get(uri).strip).to_json
@@ -86,7 +90,7 @@ module BartApiHelper
     #       <message /> 
     #     </root>
     # ==== Examples
-    #
+    #  http://api.bart.gov/api/bsa.aspx?cmd=count&key=[Rails.application.secrets.bart_api_key]
     def bart_train_count
       puts "bart service announcement"
       
@@ -124,7 +128,7 @@ module BartApiHelper
     #    <message /> 
     #  </root>
     # ==== Examples
-    #
+    #  http://api.bart.gov/api/bsa.aspx?cmd=elev&key=[Rails.application.secrets.bart_api_key]
     def bart_elevator_status
      puts "bart elevator status"
      
@@ -234,7 +238,7 @@ module BartApiHelper
     #    <message></message>
     #  </root>
     # ==== Examples
-    #
+    #  http://api.bart.gov/api/etd.aspx?cmd=etd&orig=RICH&key=[Rails.application.secrets.bart_api_key]
     def bart_estimate_departure
       puts "Hello there"
       
@@ -326,7 +330,7 @@ module BartApiHelper
     #      <message />
     #    </root>
     # ==== Examples
-    #
+    #  http://api.bart.gov/api/route.aspx?cmd=routeinfo&route=6&key=[Rails.application.secrets.bart_api_key]
     def bart_routes
       puts "Hello there"
       
@@ -369,7 +373,7 @@ module BartApiHelper
     #       <message /> 
     #  </root>
     # ==== Examples
-    #
+    #  http://api.bart.gov/api/route.aspx?cmd=routes&key=[Rails.application.secrets.bart_api_key]
     def bart_routeinfo
       puts "Hello there"
       
@@ -441,7 +445,7 @@ module BartApiHelper
     #       </message>
     #     </root>
     # ==== Examples
-    #
+    #  http://api.bart.gov/api/sched.aspx?cmd=arrive&orig=ASHB&dest=CIVC&date=now&b=2&a=2&l=1&key=[Rails.application.secrets.bart_api_key]
     def bart_arrive
       puts "Hello there"
       
@@ -507,7 +511,7 @@ module BartApiHelper
     #       </message>
     #     </root>
     # ==== Examples
-    #
+    #  http://api.bart.gov/api/sched.aspx?cmd=depart&orig=ASHB&dest=CIVC&date=now&b=2&a=2&l=1&key=[Rails.application.secrets.bart_api_key]
     def bart_depart
       puts "Hello there"
       
@@ -552,7 +556,7 @@ module BartApiHelper
     #        </message>
     #      </root>
     # ==== Examples
-    #
+    #  http://api.bart.gov/api/sched.aspx?cmd=fare&orig=12th&dest=embr&key=[Rails.application.secrets.bart_api_key]
     def bart_fare
       puts "Hello there"
       
@@ -619,7 +623,7 @@ module BartApiHelper
     #       <message /> 
     #     </root>
     # ==== Examples
-    #
+    #  http://api.bart.gov/api/sched.aspx?cmd=special&key=[Rails.application.secrets.bart_api_key]
     def bart_holiday
       puts "Hello there"
       
@@ -661,7 +665,7 @@ module BartApiHelper
     #      </load>
     #    </root> 
     # ==== Examples
-    #
+    #  http://api.bart.gov/api/sched.aspx?cmd=load&ld1=WDUB1130&ld2=BAYF0331&ld3=19TH0217&st=w&key=[Rails.application.secrets.bart_api_key]
     def bart_load
       puts "Hello there"
       
@@ -768,7 +772,7 @@ module BartApiHelper
     #      <message>
     #    </root>
     # ==== Examples
-    #
+    #  http://api.bart.gov/api/sched.aspx?cmd=routesched&route=6&key=[Rails.application.secrets.bart_api_key]
     def bart_route_schedule
       puts "Hello there"
       
@@ -802,7 +806,7 @@ module BartApiHelper
     #      <message /> 
     #  </root>
     # ==== Examples
-    #
+    #  http://api.bart.gov/api/sched.aspx?cmd=scheds&key=[Rails.application.secrets.bart_api_key]
     def bart_schedules
       puts "Hello there"
       
@@ -849,7 +853,7 @@ module BartApiHelper
     #     </message>
     #  </root>
     # ==== Examples
-    #
+    #  http://api.bart.gov/api/sched.aspx?cmd=special&l=1&key=[Rails.application.secrets.bart_api_key]
     def bart_special
       puts "Hello there"
       
@@ -902,7 +906,7 @@ module BartApiHelper
     #    </message>
     #  </root>
     # ==== Examples
-    #
+    #  http://api.bart.gov/api/sched.aspx?cmd=stnsched&orig=12th&l=1&key=[Rails.application.secrets.bart_api_key]
    def bart_station_schedule
      puts "Hello there"
       
@@ -976,7 +980,7 @@ module BartApiHelper
     #       <message /> 
     #  </root>
     # ==== Examples
-    #
+    #  http://api.bart.gov/api/stn.aspx?cmd=stninfo&orig=24th&key=[Rails.application.secrets.bart_api_key]
     def bart_station_info
       puts "Hello there"
       
@@ -1035,7 +1039,7 @@ module BartApiHelper
     #      </message> 
     #  </root>
     # ==== Examples
-    #
+    #  http://api.bart.gov/api/stn.aspx?cmd=stnaccess&orig=12th&l=1&key=[Rails.application.secrets.bart_api_key]
     def bart_station_access
       puts "Hello there"
       
@@ -1090,7 +1094,7 @@ module BartApiHelper
     #       <message /> 
     #  </root>
     # ==== Examples
-    #
+    #  http://api.bart.gov/api/stn.aspx?cmd=stns&key=[Rails.application.secrets.bart_api_key]
     def bart_stations
       puts "Hello there"
       
