@@ -1,6 +1,5 @@
 # TODO:
-# Add example link for each endpoint
-# Add correct parameters for every endpoint
+# Implement optional parameters to endpoint implementation.
 
 # A module that wraps http://api.bart.gov/  (2016). 
 # The api is broken up in various modules such as: Overview, Advisories, Real-Time Estimates, Route Information, and Schedule Information.
