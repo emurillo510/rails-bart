@@ -61,12 +61,26 @@ module BartApiHelper
     # ==== Examples
     #  http://api.bart.gov/api/bsa.aspx?cmd=bsa&date=today&key=[Rails.application.secrets.bart_api_key]
     def bart_bsa_get_advisories(client_options={})
+    
       puts "bart base url: " << BartApiHelper.bart_base_url
       puts "bart client command: " << "input from client"
       puts "bart api key: " << BartApiHelper.bart_api_key
-      site_url = "http://api.bart.gov/api/bsa.aspx?cmd=bsa&key=" << BartApiHelper.bart_api_key
+      puts "client_options: " << client_options.inspect
+      
+      endpoint_url = "http://api.bart.gov/api/bsa.aspx?cmd=bsa&"
+      
+      client_options.each do |key, value|
+        puts "key: " << key.inspect
+        puts "value: " << value.inspect
+        query_params =  key.to_s << "=" << value.to_s << "&"
+        
+        endpoint_url << query_params
+      end
+      
+      api_key = "key=" << BartApiHelper.bart_api_key
+      endpoint_url << api_key
        
-      uri = URI(site_url)
+      uri = URI(endpoint_url)
       output = Hash.from_xml(Net::HTTP.get(uri).strip).to_json
       
       puts "output: " + output 
@@ -92,16 +106,26 @@ module BartApiHelper
     # ==== Examples
     #  http://api.bart.gov/api/bsa.aspx?cmd=count&key=[Rails.application.secrets.bart_api_key]
     def bart_train_count(client_options={})
-      puts "bart service announcement"
+    
+      puts "bart base url: " << BartApiHelper.bart_base_url
+      puts "bart client command: " << "input from client"
+      puts "bart api key: " << BartApiHelper.bart_api_key
+      puts "client_options: " << client_options.inspect
       
-      puts "Hello there"
+      endpoint_url = "http://api.bart.gov/api/bsa.aspx?cmd=count&"
       
-      bart_key = Rails.application.secrets.bart_api_key
+      client_options.each do |key, value|
+        puts "key: " << key.inspect
+        puts "value: " << value.inspect
+        query_params =  key.to_s << "=" << value.to_s << "&"
+        
+        endpoint_url << query_params
+      end
       
-      puts "bart key: " + bart_key
-      site_url = "http://api.bart.gov/api/bsa.aspx?cmd=bsa&key=" << bart_key
+      api_key = "key=" << BartApiHelper.bart_api_key
+      endpoint_url << api_key
        
-      uri = URI(site_url)
+      uri = URI(endpoint_url)
       output = Hash.from_xml(Net::HTTP.get(uri).strip).to_json
       
       puts "output: " + output 
@@ -130,14 +154,26 @@ module BartApiHelper
     # ==== Examples
     #  http://api.bart.gov/api/bsa.aspx?cmd=elev&key=[Rails.application.secrets.bart_api_key]
     def bart_elevator_status(client_options={})
-     puts "bart elevator status"
      
-      bart_key = Rails.application.secrets.bart_api_key
+      puts "bart base url: " << BartApiHelper.bart_base_url
+      puts "bart client command: " << "input from client"
+      puts "bart api key: " << BartApiHelper.bart_api_key
+      puts "client_options: " << client_options.inspect
       
-      puts "bart key: " + bart_key
-      site_url = "http://api.bart.gov/api/bsa.aspx?cmd=bsa&key=" << bart_key
+      endpoint_url = "http://api.bart.gov/api/bsa.aspx?cmd=elev&"
+      
+      client_options.each do |key, value|
+        puts "key: " << key.inspect
+        puts "value: " << value.inspect
+        query_params =  key.to_s << "=" << value.to_s << "&"
+        
+        endpoint_url << query_params
+      end
+      
+      api_key = "key=" << BartApiHelper.bart_api_key
+      endpoint_url << api_key
        
-      uri = URI(site_url)
+      uri = URI(endpoint_url)
       output = Hash.from_xml(Net::HTTP.get(uri).strip).to_json
       
       puts "output: " + output 
@@ -240,14 +276,28 @@ module BartApiHelper
     # ==== Examples
     #  http://api.bart.gov/api/etd.aspx?cmd=etd&orig=RICH&key=[Rails.application.secrets.bart_api_key]
     def bart_estimate_departure(client_options={})
-      puts "Hello there"
       
-      bart_key = Rails.application.secrets.bart_api_key
+      puts "bart base url: " << BartApiHelper.bart_base_url
+      puts "bart client command: " << "input from client"
+      puts "bart api key: " << BartApiHelper.bart_api_key
+      puts "client_options: " << client_options.inspect
       
-      puts "bart key: " + bart_key
-      site_url = "http://api.bart.gov/api/bsa.aspx?cmd=bsa&key=" << bart_key
+      endpoint_url = "http://api.bart.gov/api/etd.aspx?cmd=etd&"
+      
+      client_options.each do |key, value|
+        puts "key: " << key.inspect
+        puts "value: " << value.inspect
+        query_params =  key.to_s << "=" << value.to_s << "&"
+        
+        endpoint_url << query_params
+      end
+      
+      api_key = "key=" << BartApiHelper.bart_api_key
+      endpoint_url << api_key
+      
+      puts "endpoint_url: " << endpoint_url.inspect
        
-      uri = URI(site_url)
+      uri = URI(endpoint_url)
       output = Hash.from_xml(Net::HTTP.get(uri).strip).to_json
       
       puts "output: " + output 
@@ -332,19 +382,33 @@ module BartApiHelper
     # ==== Examples
     #  http://api.bart.gov/api/route.aspx?cmd=routeinfo&route=6&key=[Rails.application.secrets.bart_api_key]
     def bart_routes(client_options={})
-      puts "Hello there"
+    
+      puts "bart base url: " << BartApiHelper.bart_base_url
+      puts "bart client command: " << "input from client"
+      puts "bart api key: " << BartApiHelper.bart_api_key
+      puts "client_options: " << client_options.inspect
       
-      bart_key = Rails.application.secrets.bart_api_key
+      endpoint_url = "http://api.bart.gov/api/route.aspx?cmd=routeinfo&"
       
-      puts "bart key: " + bart_key
-      site_url = "http://api.bart.gov/api/bsa.aspx?cmd=bsa&key=" << bart_key
+      client_options.each do |key, value|
+        puts "key: " << key.inspect
+        puts "value: " << value.inspect
+        query_params =  key.to_s << "=" << value.to_s << "&"
+        
+        endpoint_url << query_params
+      end
+      
+      api_key = "key=" << BartApiHelper.bart_api_key
+      endpoint_url << api_key
+      
+      puts "endpoint_url: " << endpoint_url.inspect
        
-      uri = URI(site_url)
+      uri = URI(endpoint_url)
       output = Hash.from_xml(Net::HTTP.get(uri).strip).to_json
       
       puts "output: " + output 
       
-      render  json: output, status: 200 
+      render  json: output, status: 200
     end
     
     #  routes - Requests detailed information current routes.
@@ -375,14 +439,28 @@ module BartApiHelper
     # ==== Examples
     #  http://api.bart.gov/api/route.aspx?cmd=routes&key=[Rails.application.secrets.bart_api_key]
     def bart_routeinfo(client_options={})
-      puts "Hello there"
+    
+      puts "bart base url: " << BartApiHelper.bart_base_url
+      puts "bart client command: " << "input from client"
+      puts "bart api key: " << BartApiHelper.bart_api_key
+      puts "client_options: " << client_options.inspect
       
-      bart_key = Rails.application.secrets.bart_api_key
+      endpoint_url = "http://api.bart.gov/api/route.aspx?cmd=routes&"
       
-      puts "bart key: " + bart_key
-      site_url = "http://api.bart.gov/api/bsa.aspx?cmd=bsa&key=" << bart_key
+      client_options.each do |key, value|
+        puts "key: " << key.inspect
+        puts "value: " << value.inspect
+        query_params =  key.to_s << "=" << value.to_s << "&"
+        
+        endpoint_url << query_params
+      end
+      
+      api_key = "key=" << BartApiHelper.bart_api_key
+      endpoint_url << api_key
+      
+      puts "endpoint_url: " << endpoint_url.inspect
        
-      uri = URI(site_url)
+      uri = URI(endpoint_url)
       output = Hash.from_xml(Net::HTTP.get(uri).strip).to_json
       
       puts "output: " + output 
@@ -447,19 +525,34 @@ module BartApiHelper
     # ==== Examples
     #  http://api.bart.gov/api/sched.aspx?cmd=arrive&orig=ASHB&dest=CIVC&date=now&b=2&a=2&l=1&key=[Rails.application.secrets.bart_api_key]
     def bart_arrive(client_options={})
-      puts "Hello there"
       
-      bart_key = Rails.application.secrets.bart_api_key
+      puts "bart base url: " << BartApiHelper.bart_base_url
+      puts "bart client command: " << "input from client"
+      puts "bart api key: " << BartApiHelper.bart_api_key
+      puts "client_options: " << client_options.inspect
       
-      puts "bart key: " + bart_key
-      site_url = "http://api.bart.gov/api/bsa.aspx?cmd=bsa&key=" << bart_key
+      endpoint_url = "http://api.bart.gov/api/sched.aspx?cmd=arrive&"
+      
+      client_options.each do |key, value|
+        puts "key: " << key.inspect
+        puts "value: " << value.inspect
+        query_params =  key.to_s << "=" << value.to_s << "&"
+        
+        endpoint_url << query_params
+      end
+      
+      api_key = "key=" << BartApiHelper.bart_api_key
+      endpoint_url << api_key
+      
+      puts "endpoint_url: " << endpoint_url.inspect
        
-      uri = URI(site_url)
+      uri = URI(endpoint_url)
       output = Hash.from_xml(Net::HTTP.get(uri).strip).to_json
       
       puts "output: " + output 
       
       render  json: output, status: 200
+      
     end
     
     #  depart - Requests a trip plan based on departing by the specified time.
@@ -513,19 +606,34 @@ module BartApiHelper
     # ==== Examples
     #  http://api.bart.gov/api/sched.aspx?cmd=depart&orig=ASHB&dest=CIVC&date=now&b=2&a=2&l=1&key=[Rails.application.secrets.bart_api_key]
     def bart_depart(client_options={})
-      puts "Hello there"
       
-      bart_key = Rails.application.secrets.bart_api_key
+      puts "bart base url: " << BartApiHelper.bart_base_url
+      puts "bart client command: " << "input from client"
+      puts "bart api key: " << BartApiHelper.bart_api_key
+      puts "client_options: " << client_options.inspect
       
-      puts "bart key: " + bart_key
-      site_url = "http://api.bart.gov/api/bsa.aspx?cmd=bsa&key=" << bart_key
+      endpoint_url = "http://api.bart.gov/api/sched.aspx?cmd=depart&"
+      
+      client_options.each do |key, value|
+        puts "key: " << key.inspect
+        puts "value: " << value.inspect
+        query_params =  key.to_s << "=" << value.to_s << "&"
+        
+        endpoint_url << query_params
+      end
+      
+      api_key = "key=" << BartApiHelper.bart_api_key
+      endpoint_url << api_key
+      
+      puts "endpoint_url: " << endpoint_url.inspect
        
-      uri = URI(site_url)
+      uri = URI(endpoint_url)
       output = Hash.from_xml(Net::HTTP.get(uri).strip).to_json
       
       puts "output: " + output 
       
       render  json: output, status: 200
+      
     end
     
     #  fare - Requests fare information for a trip between two stations.
@@ -558,19 +666,34 @@ module BartApiHelper
     # ==== Examples
     #  http://api.bart.gov/api/sched.aspx?cmd=fare&orig=12th&dest=embr&key=[Rails.application.secrets.bart_api_key]
     def bart_fare(client_options)
-      puts "Hello there"
       
-      bart_key = Rails.application.secrets.bart_api_key
+      puts "bart base url: " << BartApiHelper.bart_base_url
+      puts "bart client command: " << "input from client"
+      puts "bart api key: " << BartApiHelper.bart_api_key
+      puts "client_options: " << client_options.inspect
       
-      puts "bart key: " + bart_key
-      site_url = "http://api.bart.gov/api/bsa.aspx?cmd=bsa&key=" << bart_key
+      endpoint_url = "http://api.bart.gov/api/sched.aspx?cmd=fare&"
+      
+      client_options.each do |key, value|
+        puts "key: " << key.inspect
+        puts "value: " << value.inspect
+        query_params =  key.to_s << "=" << value.to_s << "&"
+        
+        endpoint_url << query_params
+      end
+      
+      api_key = "key=" << BartApiHelper.bart_api_key
+      endpoint_url << api_key
+      
+      puts "endpoint_url: " << endpoint_url.inspect
        
-      uri = URI(site_url)
+      uri = URI(endpoint_url)
       output = Hash.from_xml(Net::HTTP.get(uri).strip).to_json
       
       puts "output: " + output 
       
       render  json: output, status: 200
+      
     end
     
     #  holiday - Requests information on the upcoming BART holidays, and what type of schedule will be run on those days.
@@ -625,19 +748,34 @@ module BartApiHelper
     # ==== Examples
     #  http://api.bart.gov/api/sched.aspx?cmd=special&key=[Rails.application.secrets.bart_api_key]
     def bart_holiday(client_options={})
-      puts "Hello there"
       
-      bart_key = Rails.application.secrets.bart_api_key
+      puts "bart base url: " << BartApiHelper.bart_base_url
+      puts "bart client command: " << "input from client"
+      puts "bart api key: " << BartApiHelper.bart_api_key
+      puts "client_options: " << client_options.inspect
       
-      puts "bart key: " + bart_key
-      site_url = "http://api.bart.gov/api/bsa.aspx?cmd=bsa&key=" << bart_key
+      endpoint_url = "http://api.bart.gov/api/sched.aspx?cmd=holiday&"
+      
+      client_options.each do |key, value|
+        puts "key: " << key.inspect
+        puts "value: " << value.inspect
+        query_params =  key.to_s << "=" << value.to_s << "&"
+        
+        endpoint_url << query_params
+      end
+      
+      api_key = "key=" << BartApiHelper.bart_api_key
+      endpoint_url << api_key
+      
+      puts "endpoint_url: " << endpoint_url.inspect
        
-      uri = URI(site_url)
+      uri = URI(endpoint_url)
       output = Hash.from_xml(Net::HTTP.get(uri).strip).to_json
       
       puts "output: " + output 
       
       render  json: output, status: 200
+      
     end
     
     #  load - Requests estimated load factor for specified train(s).
@@ -667,19 +805,34 @@ module BartApiHelper
     # ==== Examples
     #  http://api.bart.gov/api/sched.aspx?cmd=load&ld1=WDUB1130&ld2=BAYF0331&ld3=19TH0217&st=w&key=[Rails.application.secrets.bart_api_key]
     def bart_load(client_options={})
-      puts "Hello there"
+    
+      puts "bart base url: " << BartApiHelper.bart_base_url
+      puts "bart client command: " << "input from client"
+      puts "bart api key: " << BartApiHelper.bart_api_key
+      puts "client_options: " << client_options.inspect
       
-      bart_key = Rails.application.secrets.bart_api_key
+      endpoint_url = "http://api.bart.gov/api/sched.aspx?cmd=load&"
       
-      puts "bart key: " + bart_key
-      site_url = "http://api.bart.gov/api/bsa.aspx?cmd=bsa&key=" << bart_key
+      client_options.each do |key, value|
+        puts "key: " << key.inspect
+        puts "value: " << value.inspect
+        query_params =  key.to_s << "=" << value.to_s << "&"
+        
+        endpoint_url << query_params
+      end
+      
+      api_key = "key=" << BartApiHelper.bart_api_key
+      endpoint_url << api_key
+      
+      puts "endpoint_url: " << endpoint_url.inspect
        
-      uri = URI(site_url)
+      uri = URI(endpoint_url)
       output = Hash.from_xml(Net::HTTP.get(uri).strip).to_json
       
       puts "output: " + output 
       
       render  json: output, status: 200
+      
     end
     
     #  routesched - Requests a full schedule for the specified route.
@@ -774,14 +927,28 @@ module BartApiHelper
     # ==== Examples
     #  http://api.bart.gov/api/sched.aspx?cmd=routesched&route=6&key=[Rails.application.secrets.bart_api_key]
     def bart_route_schedule(client_options={})
-      puts "Hello there"
       
-      bart_key = Rails.application.secrets.bart_api_key
+      puts "bart base url: " << BartApiHelper.bart_base_url
+      puts "bart client command: " << "input from client"
+      puts "bart api key: " << BartApiHelper.bart_api_key
+      puts "client_options: " << client_options.inspect
       
-      puts "bart key: " + bart_key
-      site_url = "http://api.bart.gov/api/bsa.aspx?cmd=bsa&key=" << bart_key
+      endpoint_url = "http://api.bart.gov/api/sched.aspx?cmd=routesched&"
+      
+      client_options.each do |key, value|
+        puts "key: " << key.inspect
+        puts "value: " << value.inspect
+        query_params =  key.to_s << "=" << value.to_s << "&"
+        
+        endpoint_url << query_params
+      end
+      
+      api_key = "key=" << BartApiHelper.bart_api_key
+      endpoint_url << api_key
+      
+      puts "endpoint_url: " << endpoint_url.inspect
        
-      uri = URI(site_url)
+      uri = URI(endpoint_url)
       output = Hash.from_xml(Net::HTTP.get(uri).strip).to_json
       
       puts "output: " + output 
@@ -808,14 +975,28 @@ module BartApiHelper
     # ==== Examples
     #  http://api.bart.gov/api/sched.aspx?cmd=scheds&key=[Rails.application.secrets.bart_api_key]
     def bart_schedules(client_options={})
-      puts "Hello there"
+    
+      puts "bart base url: " << BartApiHelper.bart_base_url
+      puts "bart client command: " << "input from client"
+      puts "bart api key: " << BartApiHelper.bart_api_key
+      puts "client_options: " << client_options.inspect
       
-      bart_key = Rails.application.secrets.bart_api_key
+      endpoint_url = "http://api.bart.gov/api/sched.aspx?cmd=scheds&"
       
-      puts "bart key: " + bart_key
-      site_url = "http://api.bart.gov/api/bsa.aspx?cmd=bsa&key=" << bart_key
+      client_options.each do |key, value|
+        puts "key: " << key.inspect
+        puts "value: " << value.inspect
+        query_params =  key.to_s << "=" << value.to_s << "&"
+        
+        endpoint_url << query_params
+      end
+      
+      api_key = "key=" << BartApiHelper.bart_api_key
+      endpoint_url << api_key
+      
+      puts "endpoint_url: " << endpoint_url.inspect
        
-      uri = URI(site_url)
+      uri = URI(endpoint_url)
       output = Hash.from_xml(Net::HTTP.get(uri).strip).to_json
       
       puts "output: " + output 
@@ -855,14 +1036,28 @@ module BartApiHelper
     # ==== Examples
     #  http://api.bart.gov/api/sched.aspx?cmd=special&l=1&key=[Rails.application.secrets.bart_api_key]
     def bart_special(client_options={})
-      puts "Hello there"
       
-      bart_key = Rails.application.secrets.bart_api_key
+      puts "bart base url: " << BartApiHelper.bart_base_url
+      puts "bart client command: " << "input from client"
+      puts "bart api key: " << BartApiHelper.bart_api_key
+      puts "client_options: " << client_options.inspect
       
-      puts "bart key: " + bart_key
-      site_url = "http://api.bart.gov/api/bsa.aspx?cmd=bsa&key=" << bart_key
+      endpoint_url = "http://api.bart.gov/api/sched.aspx?cmd=special&"
+      
+      client_options.each do |key, value|
+        puts "key: " << key.inspect
+        puts "value: " << value.inspect
+        query_params =  key.to_s << "=" << value.to_s << "&"
+        
+        endpoint_url << query_params
+      end
+      
+      api_key = "key=" << BartApiHelper.bart_api_key
+      endpoint_url << api_key
+      
+      puts "endpoint_url: " << endpoint_url.inspect
        
-      uri = URI(site_url)
+      uri = URI(endpoint_url)
       output = Hash.from_xml(Net::HTTP.get(uri).strip).to_json
       
       puts "output: " + output 
@@ -908,14 +1103,28 @@ module BartApiHelper
     # ==== Examples
     #  http://api.bart.gov/api/sched.aspx?cmd=stnsched&orig=12th&l=1&key=[Rails.application.secrets.bart_api_key]
    def bart_station_schedule(client_options={})
-     puts "Hello there"
+   
+      puts "bart base url: " << BartApiHelper.bart_base_url
+      puts "bart client command: " << "input from client"
+      puts "bart api key: " << BartApiHelper.bart_api_key
+      puts "client_options: " << client_options.inspect
       
-      bart_key = Rails.application.secrets.bart_api_key
+      endpoint_url = "http://api.bart.gov/api/sched.aspx?cmd=stnsched&"
       
-      puts "bart key: " + bart_key
-      site_url = "http://api.bart.gov/api/bsa.aspx?cmd=bsa&key=" << bart_key
+      client_options.each do |key, value|
+        puts "key: " << key.inspect
+        puts "value: " << value.inspect
+        query_params =  key.to_s << "=" << value.to_s << "&"
+        
+        endpoint_url << query_params
+      end
+      
+      api_key = "key=" << BartApiHelper.bart_api_key
+      endpoint_url << api_key
+      
+      puts "endpoint_url: " << endpoint_url.inspect
        
-      uri = URI(site_url)
+      uri = URI(endpoint_url)
       output = Hash.from_xml(Net::HTTP.get(uri).strip).to_json
       
       puts "output: " + output 
@@ -982,19 +1191,34 @@ module BartApiHelper
     # ==== Examples
     #  http://api.bart.gov/api/stn.aspx?cmd=stninfo&orig=24th&key=[Rails.application.secrets.bart_api_key]
     def bart_station_info(client_options={})
-      puts "Hello there"
       
-      bart_key = Rails.application.secrets.bart_api_key
+      puts "bart base url: " << BartApiHelper.bart_base_url
+      puts "bart client command: " << "input from client"
+      puts "bart api key: " << BartApiHelper.bart_api_key
+      puts "client_options: " << client_options.inspect
       
-      puts "bart key: " + bart_key
-      site_url = "http://api.bart.gov/api/bsa.aspx?cmd=bsa&key=" << bart_key
+      endpoint_url = "http://api.bart.gov/api/sched.aspx?cmd=stninfo&"
+      
+      client_options.each do |key, value|
+        puts "key: " << key.inspect
+        puts "value: " << value.inspect
+        query_params =  key.to_s << "=" << value.to_s << "&"
+        
+        endpoint_url << query_params
+      end
+      
+      api_key = "key=" << BartApiHelper.bart_api_key
+      endpoint_url << api_key
+      
+      puts "endpoint_url: " << endpoint_url.inspect
        
-      uri = URI(site_url)
+      uri = URI(endpoint_url)
       output = Hash.from_xml(Net::HTTP.get(uri).strip).to_json
       
       puts "output: " + output 
       
       render  json: output, status: 200
+      
     end
     
     #  stnaccess - Requests detailed information how to access the specified station as well as information about the neighborhood around the station.
@@ -1041,19 +1265,34 @@ module BartApiHelper
     # ==== Examples
     #  http://api.bart.gov/api/stn.aspx?cmd=stnaccess&orig=12th&l=1&key=[Rails.application.secrets.bart_api_key]
     def bart_station_access(client_options={})
-      puts "Hello there"
       
-      bart_key = Rails.application.secrets.bart_api_key
+      puts "bart base url: " << BartApiHelper.bart_base_url
+      puts "bart client command: " << "input from client"
+      puts "bart api key: " << BartApiHelper.bart_api_key
+      puts "client_options: " << client_options.inspect
       
-      puts "bart key: " + bart_key
-      site_url = "http://api.bart.gov/api/bsa.aspx?cmd=bsa&key=" << bart_key
+      endpoint_url = "http://api.bart.gov/api/stn.aspx?cmd=stnaccess&"
+      
+      client_options.each do |key, value|
+        puts "key: " << key.inspect
+        puts "value: " << value.inspect
+        query_params =  key.to_s << "=" << value.to_s << "&"
+        
+        endpoint_url << query_params
+      end
+      
+      api_key = "key=" << BartApiHelper.bart_api_key
+      endpoint_url << api_key
+      
+      puts "endpoint_url: " << endpoint_url.inspect
        
-      uri = URI(site_url)
+      uri = URI(endpoint_url)
       output = Hash.from_xml(Net::HTTP.get(uri).strip).to_json
       
       puts "output: " + output 
       
       render  json: output, status: 200
+      
     end
     
     #  stns - Provides a list of all available stations.
@@ -1096,14 +1335,28 @@ module BartApiHelper
     # ==== Examples
     #  http://api.bart.gov/api/stn.aspx?cmd=stns&key=[Rails.application.secrets.bart_api_key]
     def bart_stations(client_options={})
-      puts "Hello there"
+    
+      puts "bart base url: " << BartApiHelper.bart_base_url
+      puts "bart client command: " << "input from client"
+      puts "bart api key: " << BartApiHelper.bart_api_key
+      puts "client_options: " << client_options.inspect
       
-      bart_key = Rails.application.secrets.bart_api_key
+      endpoint_url = "http://api.bart.gov/api/stn.aspx?cmd=stns&"
       
-      puts "bart key: " + bart_key
-      site_url = "http://api.bart.gov/api/bsa.aspx?cmd=bsa&key=" << bart_key
+      client_options.each do |key, value|
+        puts "key: " << key.inspect
+        puts "value: " << value.inspect
+        query_params =  key.to_s << "=" << value.to_s << "&"
+        
+        endpoint_url << query_params
+      end
+      
+      api_key = "key=" << BartApiHelper.bart_api_key
+      endpoint_url << api_key
+      
+      puts "endpoint_url: " << endpoint_url.inspect
        
-      uri = URI(site_url)
+      uri = URI(endpoint_url)
       output = Hash.from_xml(Net::HTTP.get(uri).strip).to_json
       
       puts "output: " + output 
