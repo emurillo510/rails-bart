@@ -1,11 +1,10 @@
 Rails.application.routes.draw do
-  root 'bart#index'
-  
-  get '/getServiceAdvisories' => 'bart#bart_bsa_get_advisories'
+
+  get '/getServiceAdvisories' => 'bart#get_bart_bsa_get_advisories'
   get '/getTrainCount' => 'bart#get_bart_train_count'
   get '/getElevatorStatus' => 'bart#get_bart_elevator_status'
   
-  get '/getEtd' => 'bart#  def get_bart_estimate_departure'
+  get '/getEtd' => 'bart#get_bart_estimate_departure'
   get '/getEtdFilter' => 'bart#get_bart_estimate_departure_filter'
   
   get '/getRoutes' => 'bart#get_bart_routes'
@@ -20,10 +19,11 @@ Rails.application.routes.draw do
   get '/getSchedules' => 'bart#get_bart_schedules'
   get '/getSpecialSchedules' => 'bart#get_bart_special'
   get '/getStationSchedules' => 'bart#get_bart_station_schedule'
-  
-  get '/getStations' => 'bart#get_bart_stations'
-  get '/getStationInfo' => 'bart#get_bart_station_info'
+ 
   get '/getStationAccess' => 'bart#get_bart_station_access'
+  get '/getStationInfo' => 'bart#get_bart_station_info'
+  get '/getStations' => 'bart#get_bart_stations'
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -6,12 +6,11 @@ class BartController < ApplicationController
   include BartApiHelper::ScheduleInformation
   include BartApiHelper::StationInformation
 
-@VALID_PARAMETERS = %(cmd, key, orig, plat, dir, route, sched, date, time. b, a, l, dest, Id1, Id2, Id3, st)
-
-def index
-    bart_bsa_get_advisories  
+@@VALID_PARAMETERS = %i(cmd key orig plat dir route sched date time b a l dest ld1 ld2 ld3 st)
+def valid_params
+  @@VALID_PARAMETERS
 end
-  
+
   # Advisories Module
   
   # get_bart_bsa_get_advisories - Requests current advisory information.
@@ -46,10 +45,14 @@ end
   # ==== Examples
   #
   def get_bart_bsa_get_advisories
-  
-    client_options  = {
+    
+    puts "get_bart_bsa_get_advisories"
+    
+    client_options =  {
       orig: client_params[:orig]
     }
+    
+    puts "client_options: " << client_options.inspect
     
     bart_bsa_get_advisories(client_options)
   end
@@ -203,7 +206,9 @@ end
   def get_bart_estimate_departure
   
     client_options  = {
-      
+      orig: client_params[:orig]
+      #plat: client_params[:plat],
+      #dir: client_params[:dir]
     }
     bart_estimate_departure(client_options)
   end
@@ -361,7 +366,9 @@ end
   def get_bart_routes
   
     client_options  = {
-      
+      route: client_params[:route]
+      #sched: client_params[:sched],
+      #date: client_params[:sched]
     }
     
     bart_routes(client_options)
@@ -456,7 +463,13 @@ end
   #  http://api.bart.gov/api/sched.aspx?cmd=arrive&orig=ASHB&dest=CIVC&date=now&b=2&a=2&l=1&key=[Rails.application.secrets.bart_api_key]
  def get_bart_arrive
    client_options = {
-     
+     orig: client_params[:orig],
+     dest: client_params[:dest]
+     #time: client_params[:time],
+     #date: client_params[:date],
+     #b: client_params[:b],
+     #a: client_params[:a],
+     #l: client_params[:l],
    }
    
    bart_arrive(client_options)
@@ -515,7 +528,13 @@ end
   #  http://api.bart.gov/api/sched.aspx?cmd=depart&orig=ASHB&dest=CIVC&date=now&b=2&a=2&l=1&key=[Rails.application.secrets.bart_api_key]
  def get_bart_depart
    client_options = {
-     
+     orig: client_params[:orig],
+     dest: client_params[:dest]
+     #time: client_params[:time],
+     #date: client_params[:date],
+     #b: client_params[:b],
+     #a: client_params[:a],
+     #l: client_params[:l],
    }
    bart_depart(client_options)
  end
@@ -551,7 +570,10 @@ end
   #  http://api.bart.gov/api/sched.aspx?cmd=fare&orig=12th&dest=embr&key=[Rails.application.secrets.bart_api_key]
  def get_bart_fare
    client_options = {
-     
+     orig: client_params[:orig],
+     dest: client_params[:dest]
+     #date: client_params[:date],
+     #sched: client_params[:sched]
    }
    bart_fare(client_options)
  end
@@ -643,7 +665,10 @@ end
   #  http://api.bart.gov/api/sched.aspx?cmd=load&ld1=WDUB1130&ld2=BAYF0331&ld3=19TH0217&st=w&key=[Rails.application.secrets.bart_api_key]
  def get_bart_load
    client_options = {
-     
+     ld1: client_params[:ld1]
+     #ld2: client_params[:ld2],
+     #ld3: client_params[:ld3],
+     #st: client_params[:st]
    }
    bart_load(client_options)
  end
@@ -741,7 +766,10 @@ end
   #  http://api.bart.gov/api/sched.aspx?cmd=routesched&route=6&key=[Rails.application.secrets.bart_api_key]
  def get_bart_route_schedule
    client_options = {
-     
+     route: client_params[:route]
+     #sched: client_params[:sched],
+     #date: client_params[:date],
+     #l: client_params[:l]
    }
    bart_route_schedule(client_options)
  end
@@ -804,7 +832,7 @@ end
   #  http://api.bart.gov/api/sched.aspx?cmd=special&l=1&key=[Rails.application.secrets.bart_api_key]
  def get_bart_special
    client_options = {
-     
+    # l: client_params[:l]
    }
    bart_special(client_options)
  end
@@ -848,7 +876,8 @@ end
   #  http://api.bart.gov/api/sched.aspx?cmd=stnsched&orig=12th&l=1&key=[Rails.application.secrets.bart_api_key]
  def get_bart_station_schedule
    client_options = {
-     
+     orig: client_params[:orig]
+     #date: client_params[:date]
    }
    bart_station_schedule(client_options)
  end
@@ -911,7 +940,7 @@ end
   #  http://api.bart.gov/api/stn.aspx?cmd=stninfo&orig=24th&key=[Rails.application.secrets.bart_api_key]
   def get_bart_station_info
     client_options = {
-     
+     orig: client_params[:orig]
    }
     bart_station_info(client_options)
   end
@@ -961,7 +990,8 @@ end
   #  http://api.bart.gov/api/stn.aspx?cmd=stnaccess&orig=12th&l=1&key=[Rails.application.secrets.bart_api_key]
   def get_bart_station_access
     client_options = {
-     
+      orig: client_params[:orig]
+      #l: client_params[:l]
      }
     bart_station_access(client_options)
   end
@@ -1014,6 +1044,6 @@ end
   
   private
     def client_params
-      params.permit(@VALID_PARAMETERS)
+      params.permit(valid_params)
     end
 end
